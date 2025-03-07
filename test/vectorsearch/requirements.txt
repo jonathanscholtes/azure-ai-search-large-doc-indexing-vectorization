@@ -1,0 +1,9 @@
+azure-search-documents==11.4.0
+azure-identity==1.17.1
+PyMuPDF
+pypdf
+python-dotenv==1.0.0
+langchain-openai
+langchain
+langchain-community
+python-dotenv==1.0.0

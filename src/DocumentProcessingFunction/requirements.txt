@@ -1,0 +1,11 @@
+azure-functions
+azure-functions-durable
+azure-identity==1.17.1
+azure-keyvault-secrets
+azure-storage-blob
+azure-search-documents==11.4.0
+requests
+PyMuPDF
+langchain-openai
+langchain
+langchain-community

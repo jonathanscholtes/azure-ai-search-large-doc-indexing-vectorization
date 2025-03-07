@@ -1,0 +1,9 @@
+streamlit
+azure-ai-inference
+azure-search-documents==11.6.0b4
+python-dotenv==1.0.0
+langchain-openai
+langchain
+langgraph 
+langchain-community
+azure-identity==1.17.1
