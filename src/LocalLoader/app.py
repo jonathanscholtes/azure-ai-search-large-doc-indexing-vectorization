@@ -1,11 +1,10 @@
-import time
 import fitz
 from langchain_core.documents import Document
 from azure.core.credentials import AzureKeyCredential
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import logging
 import uuid
-from typing import List, Optional
+from typing import List
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
@@ -25,12 +24,13 @@ from azure.core.exceptions import ResourceNotFoundError
 from langchain_openai import AzureOpenAIEmbeddings
 from os import environ
 from dotenv import load_dotenv
+import argparse
 
 
 load_dotenv(override=False)
 
 
-class DocumentLoader ():
+class DocumentLoader:
     def __init__(self, file_path: str):
         self.file_path = file_path
 
@@ -186,7 +186,7 @@ class AISearchIndexLoader:
 
 
 
-def main():
+def main(files: list):
     
     #logging.basicConfig(level=logging.INFO)
 
@@ -201,7 +201,6 @@ def main():
         api_key=environ.get("AZURE_OPENAI_API_KEY"),
     )
 
-    files = environ.get("FILES", "").split(";")
 
     for file_path in files:
         file_name = file_path.split('\\')[-1] 
@@ -219,4 +218,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    
+    parser = argparse.ArgumentParser(description="Process PDF files for indexing into Azure AI Search")
+    parser.add_argument('--files', type=str, required=True, help="Semicolon separated list of file paths")
+    
+    args = parser.parse_args()
+    
+    # Split the files string into a list
+    files = args.files.split(";")
+    main(files)
