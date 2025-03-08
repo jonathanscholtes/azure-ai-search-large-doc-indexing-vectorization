@@ -101,6 +101,16 @@ python app.py --files "C:\path\to\file1.pdf;C:\path\to\file2.pdf"
 
 This will initiate the chunking and indexing process for the PDF files into Azure AI Search. Please note that this may take some time.
 
+```
+Batch 1/22 uploaded. Remaining: 21
+Batch 2/22 uploaded. Remaining: 20
+Batch 3/22 uploaded. Remaining: 19
+Batch 4/22 uploaded. Remaining: 18
+Batch 5/22 uploaded. Remaining: 17
+Batch 6/22 uploaded. Remaining: 16
+Batch 7/22 uploaded. Remaining: 15
+```
+
 ---
 
 ## Running the Streamlit Application
