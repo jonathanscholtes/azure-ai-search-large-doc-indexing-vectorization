@@ -74,7 +74,7 @@ This script will provision the necessary resources in your Azure subscription ac
 
 ## Running the LocalLoader Applicaiton for PDF Indexing
 
-The **LocalLoader** is a Python application designed to demonstrate PDF chunking and indexing using Azure AI Search push APIs. For a more scalable solution capable of handling large volumes of documents, consider using the [Azure Function](#loader-function), which is also made available with this solution. 
+The **LocalLoader** is a Python application designed to demonstrate PDF chunking and indexing using Azure AI Search push APIs. For a more scalable solution capable of handling large volumes of documents, consider using the [Azure Function](#loading-documents-with-azure-function-alternative-to-localloader-loader-function), which is also made available with this solution. 
 
 ### 1. Configure Environment Variables
 
