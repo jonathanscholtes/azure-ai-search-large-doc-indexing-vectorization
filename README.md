@@ -32,12 +32,28 @@ Furthermore, the document chunking strategies utilized in this project are outli
 
 ---
 
+## Key Components  
+
+- [**Local Python Loader**](#running-the-localloader-applicaiton-for-pdf-indexing) ([src/LocalLoader](src/LocalLoader))  
+  A Python application for chunking PDFs and indexing them into **Azure AI Search** via push APIs. Demonstrates hybrid search indexing with chunking and overlap patterns.  
+
+- [**Azure Function Loader**](#loading-documents-with-azure-function-alternative-to-localloader) ([src/DocumentProcessingFunction](src/DocumentProcessingFunction))  
+  A serverless alternative that offloads processing to **Azure Functions**, using **managed identities, private endpoints**, and **configurable environment variables** for chunking, overlap, and batching.  
+
+- [**Front-End for Index Validation**](#running-the-streamlit-application) ([src/Streamlit](src/Streamlit))  
+  A **Streamlit** app for testing document retrieval in **Azure AI Search’s hybrid search**. Supports a **RAG chat application**, with retrieval logic in **data/aisearch** and OpenAI integration in **AI**. 
+
+
+---
 
 ## Requirements
 - Azure subscription for deploying Azure GenAI RAG Application.
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli) (Command Line Interface)
 - Python 3.11.4 installed on development environment.
 - An IDE for Development, such as [VS Code](https://code.visualstudio.com/download)
+
+
+
 
 ## Usage
 
@@ -167,6 +183,9 @@ Upload PDF documents to the **load** container in the Azure Storage Account. Thi
 
 
 ## Running the Streamlit Application
+The Streamlit application [src/Streamlit](src/Streamlit) serves as a simple front-end for validating document retrieval. It allows you to test the indexing process by querying documents and verifying that the expected text and page numbers are retrieved using Azure AI Search’s hybrid search. The screenshots I shared earlier illustrate this functionality.
+
+Although the front-end is straightforward, the underlying code supports a more advanced Retrieval-Augmented Generation (RAG) chat application. All code related to prompting and interfacing with Azure AI Services (OpenAI) is organized within the AI subdirectory [src/Streamlit/ai](src/Streamlit/ai), while document retrieval logic resides in [data/aisearch](src/Streamlit/data/aisearch).
 
 ### 1. Configure Environment Variables
 
