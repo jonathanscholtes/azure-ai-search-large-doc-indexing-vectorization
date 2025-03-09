@@ -140,7 +140,7 @@ Batch 7/22 uploaded. Remaining: 15
 ---
 
 
-## Loading Documents with Azure Function (Alternative to LocalLoader) {#loader-function} 
+## Loading Documents with Azure Function (Alternative to LocalLoader)
 
 This project deploys the Azure Function [DocumentProcessingFunction](src/DocumentProcessingFunction) to process and index PDF documents into Azure AI Search using a blob trigger. Authentication between Azure services is handled through **managed identities**, providing a secure alternative to API keys. Alternatively, you can use [LocalLoader](src/LocalLoader), which relies on API keys for authentication.
 
