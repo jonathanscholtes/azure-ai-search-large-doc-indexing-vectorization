@@ -22,6 +22,17 @@ The system leverages **HNSW (Hierarchical Navigable Small World)** and other vec
 
 ---
 
+## Resources  
+
+This project implements Azure AI Search **push APIs** as the recommended method for indexing large documents. For more details, refer to:  
+[Indexing Large Data Sets in Azure AI Search](https://learn.microsoft.com/en-us/azure/search/search-how-to-large-index)  
+
+Furthermore, the document chunking strategies utilized in this project are outlined in:  
+[Chunking Large Documents for Vector Search in Azure AI Search](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents)
+
+---
+
+
 ## Requirements
 - Azure subscription for deploying Azure GenAI RAG Application.
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli) (Command Line Interface)
@@ -62,6 +73,8 @@ This script will provision the necessary resources in your Azure subscription ac
 
 
 ## Running the LocalLoader Applicaiton for PDF Indexing
+
+The **LocalLoader** is a Python application designed to demonstrate PDF chunking and indexing using Azure AI Search push APIs. For a more scalable solution capable of handling large volumes of documents, consider using the [Azure Function](#loader-function), which is also made available with this solution. 
 
 ### 1. Configure Environment Variables
 
@@ -112,7 +125,7 @@ python -m pip install -r requirements.txt
 python app.py --files "C:\path\to\file1.pdf;C:\path\to\file2.pdf"
 ```
 
-This will initiate the chunking and indexing process for the PDF files into Azure AI Search. Please note that this may take some time.
+This will initiate the chunking and indexing process for the PDF files into Azure AI Search. Please note that this may take some time to index the document chunks into Azure AI Search.
 
 ```
 Batch 1/22 uploaded. Remaining: 21
@@ -125,6 +138,33 @@ Batch 7/22 uploaded. Remaining: 15
 ```
 
 ---
+
+
+## Loading Documents with Azure Function (Alternative to LocalLoader) {#loader-function} 
+
+This project deploys the Azure Function [DocumentProcessingFunction](src/DocumentProcessingFunction) to process and index PDF documents into Azure AI Search using a blob trigger. Authentication between Azure services is handled through **managed identities**, providing a secure alternative to API keys. Alternatively, you can use [LocalLoader](src/LocalLoader), which relies on API keys for authentication.
+
+**Azure Functions** provide a scalable, serverless solution that executes automatically based on events, reducing infrastructure management and optimizing costs by running only when needed.
+
+### 1. Configure Storage Account Access  
+
+To upload PDFs into the Azure Storage Account and enable embedding creation, you must allow access by configuring the Storage Account firewall settings. This ensures that your local environment can communicate with Azure services.
+
+Follow these steps to add your client IP address to the firewall settings:
+
+1. Log in to the [Azure portal](https://portal.azure.com).
+2. Navigate to your **Storage Account**.
+3. In the **Networking** section, go to **Firewall and virtual networks**.
+4. Add your current client IP address to the list of allowed addresses.
+
+![storage network](./media/storage_networking.png)
+
+### 2. Upload Documents for Indexing with Azure Function  
+
+Upload PDF documents to the **load** container in the Azure Storage Account. This upload will trigger the document processing function, which will chunk and index the documents into Azure AI Search. 
+
+---
+
 
 ## Running the Streamlit Application
 

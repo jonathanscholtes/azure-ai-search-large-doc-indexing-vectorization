@@ -36,6 +36,19 @@ $deploymentOutput = az deployment sub create `
 # Parse the deployment output to get app names and resource group
 $deploymentOutputJson = $deploymentOutput | ConvertFrom-Json
 $resourceGroupName = $deploymentOutputJson.resourceGroupName.value
+$functionAppName = $deploymentOutputJson.functionAppName.value
 
+
+Start-Sleep -Seconds 300
+
+Set-Location -Path .\scripts
+
+
+# Deploy Function Application
+Write-Output "*****************************************"
+Write-Output "Deploying Function Application from scripts"
+Write-Output "If timeout occurs, rerun the following command from scripts:"
+Write-Output ".\deploy_functionapp.ps1 -functionAppName $functionAppName -resourceGroupName $resourceGroupName"
+& .\deploy_functionapp.ps1 -functionAppName $functionAppName -resourceGroupName $resourceGroupName
 
 Write-Output "Deployment Complete"

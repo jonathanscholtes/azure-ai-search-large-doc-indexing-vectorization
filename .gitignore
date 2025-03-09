@@ -3,3 +3,4 @@ venv/
 __pycache__/
 .venv/
 .vscode/
+infra/scripts/artifacts/loader/app.zip

@@ -42,6 +42,17 @@ module security 'core/security/main.bicep' = {
   }
 }
 
+module monitor 'core/monitor/main.bicep' = { 
+  name:'monitor'
+  scope: resourceGroup
+  params:{ 
+   location:location 
+   logAnalyticsName: 'log-${projectName}-${environmentName}'
+   applicationInsightsName: 'appi-${projectName}-${environmentName}'
+  }
+}
+
+
 module data 'core/data/main.bicep' = {
   name: 'data'
   scope: resourceGroup
@@ -72,5 +83,42 @@ module azureai 'core/ai/main.bicep' = {
 
 }
 
+module apps 'core/app/main.bicep' ={ 
+  name: 'apps'
+  scope: resourceGroup
+  params:{
+    projectName:projectName
+    environmentName:environmentName
+    resourceToken:resourceToken
+    location: location
+  }
+}
+
+
+module loaderFunctionWebApp 'app/loader-function-web-app.bicep' = {
+  name: 'loaderFunctionWebApp'
+  scope: resourceGroup
+  params: { 
+    location: location
+    identityName: security.outputs.managedIdentityName
+    functionAppName: 'func-loader-${resourceToken}'
+    functionAppPlanName: apps.outputs.appServicePlanName
+    StorageBlobURL: data.outputs.storageAccountBlobEndPoint
+    StorageAccountName: data.outputs.storageAccountName
+    logAnalyticsWorkspaceName: monitor.outputs.logAnalyticsWorkspaceName
+    appInsightsName: monitor.outputs.applicationInsightsName
+    keyVaultUri:security.outputs.keyVaultUri
+    OpenAIEndPoint: azureai.outputs.OpenAIEndPoint
+    searchServiceEndpoint: azureai.outputs.searchServiceEndpoint
+    vnetId: networking.outputs.vnetId
+    subnetName: 'dataSubnet'
+    azureAiSearchBatchSize: 100
+    documentChunkOverlap: 500
+    documentChunkSize: 2000
+  
+  }
+}
+
 
 output resourceGroupName string = resourceGroup.name
+output functionAppName string = loaderFunctionWebApp.outputs.functionAppName
