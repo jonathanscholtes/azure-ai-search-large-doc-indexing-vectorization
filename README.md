@@ -1,4 +1,4 @@
-[!WARNING]  
+> ⚠️
 > **This project is currently in active development and may contain breaking changes.**  
 > Updates and modifications are being made frequently, which may impact stability or functionality. This notice will be removed once development is complete and the project reaches a stable release.
 
@@ -80,7 +80,20 @@ AZURE_OPENAI_ENDPOINT='Endpoint from deployed Azure AI Service or Azure OpenAI S
 AZURE_OPENAI_API_KEY='Key from deployed Azure AI Service or Azure OpenAI Service'
 OPENAI_API_VERSION='2024-06-01'
 ```
-### 2. Set Up and Run the LocalLoader Application
+
+### 2. Enable Key-Based API Access for LocalLoader in Azure AI Search  
+
+To use Azure AI Search with LocalLoader, you must enable key-based access for the API.  
+
+##### Steps:  
+1. Sign in to the [Azure Portal](https://portal.azure.com).  
+2. Go to your **Azure AI Search** instance.  
+3. In the **Settings** section, select **Keys**.  
+4. Under **API Access Control**, choose **Both** to enable key-based authentication.
+
+![API Access Control](./media/ai-search-api-access.png)
+
+### 3. Set Up and Run the LocalLoader Application
 
 Navigate to the Streamlit application directory [src/LocalLoader](src/LocalLoader) and follow these steps:
 
